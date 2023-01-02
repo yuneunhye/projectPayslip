@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="myBatisScheduleDAO">
+	<select id="getScheduleList" resultType="schedule">
+		select 
+               B.seq, 		
+			   A.worker_no, 
+		         name, 
+		       B.work_start_date, 
+		       B.work_end_date 
+		from WORKER A, SCHEDULE B 
+		WHERE A.worker_no = B.worker_no
+	</select>
+	<select id="getTotalHour" resultType="schedule">
+		select sum(hh) AS totalHour, sum(mm) AS totalMin from (
+	select worker_no, ROUND((TO_DATE(Replace(work_end_date,'T',' '), 'YYYY-MM-DD HH24:MI:SS') 
+	            - TO_DATE(Replace(work_start_date,'T',' '), 'YYYY-MM-DD HH24:MI:SS')) * 24, 2) AS hh,
+	             ROUND((TO_DATE(Replace(work_end_date,'T',' '), 'YYYY-MM-DD HH24:MI:SS') 
+	            - TO_DATE(Replace(work_start_date,'T',' '), 'YYYY-MM-DD HH24:MI:SS')) * 24*60, 2) AS mm
+	        from SCHEDULE
+	            where to_number(SUBSTR(work_start_date,6,2))  = #{selectMon}
+	            	AND worker_no = #{worker_no}
+)
+group by worker_no
+	</select>
+	
+	<select id="getPayInfoList" resultType="PayInfo">
+		select 
+			   A.worker_no, 
+		       A.name, 
+		       B.selectMon, 
+		       B.hourlyPay, 
+		       floor(B.totalMin/60) as HH,
+		       mod(B.totalMin,60) as MM,
+		       B.tax, 
+		      TO_CHAR(B.money, 'FM999,999,999,999') AS salary 
+		from WORKER A, PAYINFO B 
+		WHERE A.worker_no = B.worker_no 
+		 <if test="worker_no > 1">
+		and A.worker_no=#{worker_no}
+		</if>
+		order by B.seq desc
+	</select>
+	
+	<!-- 	페이징할때 총 페이인포 수 -->
+	<select id="getcountPayInfo" resultType="int">
+	SELECT COUNT(*) FROM PAYINFO 
+	where 1=1 
+					<if test="keyword != null">
+                     and name like '%'||#{keyword}||'%' 
+                   </if>
+                   <if test="worker_no !=1">
+                   	and worker_no=#{worker_no}
+                   </if>
+</select>
+
+<!-- 페이징 처리 후 페이정보 조회 -->
+<select id="getselectPayInfo" resultType="PayInfo">
+	SELECT 
+			seq,
+	 		worker_no, 
+		    name, 
+		    selectMon, 
+		    hourlyPay, 
+		    floor(totalMin/60) as HH,
+		    mod(totalMin,60) as MM,
+		    tax, 
+		    TO_CHAR(money, 'FM999,999,999,999') AS salary  
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * 
+						FROM PAYINFO
+						where 1=1 
+					<if test="keyword != null">
+                     and name like '%'||#{keyword}||'%' 
+                   </if>
+                   <if test="worker_no !=1">
+                   	and worker_no=#{worker_no}
+                   </if>
+                   
+                   ORDER BY seq DESC
+						
+						) A
+				)
+	WHERE RN BETWEEN #{start} AND #{end}
+	
+</select>
+<delete id="deletePayInfo">
+	delete from PAYINFO where seq=#{seq}
+</delete>
+	
+	<insert id="insertPayInfo" >
+		insert into PAYINFO(
+		    seq,
+		    worker_no,
+			name,
+			selectMon,
+			hourlyPay,
+			totalMin,
+			tax,
+			money)
+			values(
+			(select nvl(max(seq),0)+1 from PAYINFO),
+			#{worker_no}, 
+			#{name}, 
+			#{selectMon}, 
+			#{hourlyPay}, 
+			#{totalMin}, 
+			#{tax},
+			#{money} 
+			)
+	</insert>
+	
+	<insert id="insertSchedule">
+		insert into SCHEDULE(
+		seq,
+		worker_no,
+		work_start_date,
+		work_end_date)
+		values (
+		(select nvl(max(seq),0)+1 from SCHEDULE),
+		#{worker_no}, 
+		#{work_start_date}, 
+		#{work_end_date}
+		)
+	</insert>
+	
+	<update id="updateSchedule">
+		UPDATE SCHEDULE
+		SET work_start_date=#{work_start_date},
+		    work_end_date=#{work_end_date}
+		WHERE seq=#{seq}
+	</update>
+</mapper>
