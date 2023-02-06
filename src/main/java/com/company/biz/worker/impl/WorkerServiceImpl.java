@@ -53,5 +53,10 @@ public class WorkerServiceImpl implements WorkerService{
 		return workerMyBatisDAO.getIdCheck(vo);
 	}
 
+	@Override
+	public WorkerVO getKakaoId(long kakao_id) {
+		return workerMyBatisDAO.getKakaoId(kakao_id);
+	}
+
 	
 }

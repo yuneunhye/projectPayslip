@@ -25,7 +25,7 @@ $(function(){
 		return;
 	console.log(worker_id);
 	$.ajax({
-        url:'http://localhost:8090/biz/IdCheckService.do?worker_id='+worker_id,
+        url:'http://localhost:8090/IdCheckService.do?worker_id='+worker_id,
         type:"get",
         dataType: "json",
         contentType: "application/json",
@@ -96,14 +96,15 @@ $.fn.serializeObject = function(){
       
       var formData = $("#form1").serializeObject();
       $.ajax({
-          url:"http://localhost:8090/biz/addWorkerAjax.do",
+          url:"http://localhost:8090/addWorkerAjax.do",
           type:"post",
           data: JSON.stringify(formData),
           dataType: "json",
           contentType: "application/json",
           success(data){
              alert("회원가입이 완료되었습니다.");
-             location.href = "index.jsp";
+            // location.href = "index.jsp";
+             location.href = "redirect:index.jsp";
           },
           error:function(){
              alert('전송 실패');
@@ -118,6 +119,9 @@ $.fn.serializeObject = function(){
 	<div class="cover">
 		<form id="form1" onSubmit="return false;">
 			<table class="table table-sm">
+				<tr>
+				<td><input type="hidden" id="kakaoId" name="kakaoId" value="${kakaoId }"></td>
+				</tr>
 				<tr>
 					<td>아이디</td>
 					<td><input type="text" id="worker_id" name="worker_id">

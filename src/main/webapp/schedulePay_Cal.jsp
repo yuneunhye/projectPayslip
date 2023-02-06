@@ -34,7 +34,7 @@
 			return;
 		
 		$.ajax({
-			          url:"http://localhost:8090/biz/totalHourScheduleAjax.do",
+			          url:"http://localhost:8090/totalHourScheduleAjax.do",
 			          type:"post",
 			          data: JSON.stringify(date),
 			          dataType: "json",
@@ -105,7 +105,7 @@
 		if(money=='')
 			return;
 		$.ajax({
-			          url:"http://localhost:8090/biz/payInfoAjax.do",
+			          url:"http://localhost:8090/payInfoAjax.do",
 			          type:"post",
 			          data: JSON.stringify(date),
 			          dataType: "json",

@@ -14,13 +14,14 @@
 <link
    href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css'
    rel='stylesheet' />
-<link href="css_design/header_design.css" rel="stylesheet">
+<link href="/css_design/header_design.css" rel="stylesheet">
 <script
    src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
 <!-- fullcalendar 언어 CDN -->
 <script
    src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js'></script>
-<link href="css_design/main_design.css" rel="stylesheet">
+<link href="/css_design/main_design.css" rel="stylesheet">
+
 </head>
 <body>
 

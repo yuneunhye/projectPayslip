@@ -44,14 +44,14 @@
 	  
 	   
 		   $.ajax({
-		          url:"http://localhost:8090/biz/scheduleUpdateAjax.do",
+		          url:"http://localhost:8090/scheduleUpdateAjax.do",
 		          type:"post",
 		          data: JSON.stringify(data),
 		          dataType: "json",
 		          contentType: "application/json",
 		          async: false,//동기식으로 한다.
 		          success(data){
-		        		  alert("스케쥴 수정이 완료되었습니다.");
+		        		  alert("스케줄 수정이 완료되었습니다.");
 		        		  opener.window.location.reload();
 				          window.close();
 		          },

@@ -95,6 +95,14 @@ public class SchedulerController {
 		
 		return "main";
 	}
+	//카카오로 로그인될시
+	@RequestMapping("/login/getScheduleList.do")
+	public String getScheduleList1(ScheduleVO vo, Model model, HttpSession session) {
+		System.out.println("getScheduleList");
+		model.addAttribute("scheduleList", scheduleService.getScheduleList(vo));
+		
+		return "main";
+	}
 	
 	//스케줄등록매핑
 	@ResponseBody

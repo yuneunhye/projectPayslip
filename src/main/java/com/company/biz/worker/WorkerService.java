@@ -23,4 +23,6 @@ public interface WorkerService {
 	//아이디 중복 체크
 	int getIdCheck(WorkerVO vo);
 
+	WorkerVO getKakaoId(long kakao_id);
+
 }

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
+<!-- namespace가 지정된 Mapper의 SQL을 DAO클래스에서 참조할 때는 네이스페이스와 SQL의 id를 결합하여 참조해야 한다. -->
+<!-- ex) workerDAO.getLoginWorker -->
 <mapper namespace="workerDAO">
 	<select id="getLoginWorker" resultType="worker">
 		select * from WORKER where worker_id=#{worker_id} and pwd=#{pwd}
+	</select>
+	
+	<select id="getKakaoId" resultType="worker">
+	   select * from WORKER where kakaoId=#{kakao_id}
 	</select>
 	
 	<select id="getId" resultType="worker">
@@ -32,7 +37,8 @@
 			phone, 
 			gender, 
 			age, 
-			join_date
+			join_date,
+			kakaoId
 		) values (
 			(select ifnull(max(a.worker_no),0)+1 from WORKER a),  
 			#{worker_id}, 
@@ -41,7 +47,8 @@
 			#{phone}, 
 			#{gender}, 
 			#{age}, 
-			DATE_FORMAT(now(), '%Y-%m-%d')
+			DATE_FORMAT(now(), '%Y-%m-%d'),
+			#{kakaoId}
 		)
 	</insert>
 <!-- 	페이징할때 총 게시글 수 -->

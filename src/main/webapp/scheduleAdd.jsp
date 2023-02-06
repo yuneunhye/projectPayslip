@@ -147,7 +147,7 @@ div {width : 500px; margin-left: 5%; margin-top: 5%; }
 	   var count = 0;
 	   for (var i = 0; i < list.length; i++) {
 		   $.ajax({
-		          url:"http://localhost:8090/biz/addScheduleAjax.do",
+		          url:"http://localhost:8090/addScheduleAjax.do",
 		          type:"post",
 		          data: JSON.stringify(list[i]),
 		          dataType: "json",

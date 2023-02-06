@@ -13,6 +13,7 @@ public class WorkerVO {
 	private String fileupload;
 	private String join_date;
 	private String del_date;
+	private double kakaoId;
 	
 	public int getWorker_no() {
 		return worker_no;
@@ -85,6 +86,12 @@ public class WorkerVO {
 		return "WorkerVO [worker_no=" + worker_no + ", worker_id=" + worker_id + ", pwd=" + pwd + ", name=" + name
 				+ ", phone=" + phone + ", gender=" + gender + ", age=" + age + ", grade=" + grade + ", fileupload="
 				+ fileupload + ", join_date=" + join_date + ", del_date=" + del_date + "]";
+	}
+	public double getKakaoId() {
+		return kakaoId;
+	}
+	public void setKakaoId(double kakaoId) {
+		this.kakaoId = kakaoId;
 	}
 	
 	

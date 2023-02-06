@@ -3,24 +3,32 @@
 
 
 <configuration>
+
+     <!-- 연결정보 따로 생성 후 불러오기 -->
+<!-- 	<properties resource="config/database.properties"></properties> -->
+	
+     <!-- 마이바티스 설정과 관련된 기본 세팅 선언 -->
 	<settings>
-        <setting name="jdbcTypeForNull" value="NULL"/>
+	<!-- 데이터가 null로 전달이 되었으면 빈칸으로 인지말고 null로 인식
+	(value에 들어가는 NULL은 무조건 대문자로 기입) -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
         
         <setting name="logImpl" value="LOG4J"/>
-    	
-        
     </settings>
-	<!-- Alias 설정 Alias: 별명,별칭...   -->
+    
+    
+	<!-- Alias: 별명,별칭  <typeAlis>엘리먼트를 이용하여 특정 클래스의 별칭을 선언 -->
 	<typeAliases>
 		<typeAlias alias="worker" type="com.company.biz.worker.WorkerVO"/>
-		
 		<typeAlias alias="schedule" type="com.company.biz.schedule.ScheduleVO"/>
 		<typeAlias alias="PayInfo" type="com.company.biz.schedule.PayInfoVO"/>
 	</typeAliases>
 	
+	
+	
+<!-- 	SQL쿼리문들이 저장된 SQL파일 등록 -->
 	<mappers>
 		<mapper resource="mappings/worker-mapping.xml"/>
-	
 		<mapper resource="mappings/schedule_mapping.xml"/>
 	</mappers>
 	

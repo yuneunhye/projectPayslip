@@ -14,17 +14,22 @@
 	
 	
 
-	<!-- Bootstraps the root web application context before servlet initialization -->
+	<!--ContextLoaderListener 클래스는 서블릿 컨테이너가 web.xml파일을 읽어서 구동될때 자동으로 메모리에 생성된다.-->
+	<!--즉 클라이언트의 요청이 없어도 컨테이너 구동 시 pre-Loading되는 객체이다-->
+	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+<!-- ContextLoaderListener 객체는 <context-param>등록된 contextConfigLocation파라미터 정보를 읽어 -->
+<!-- 스프링 컨테이너(비지니스 영역(dao,service,vo)=business-layer.xml)를 구동하도록 프로그램한다. -->
+<!-- 스프링 컨테이너(프레젠테이션(controller,dispatcher,view) 영역=presentation-layer.xml -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:business-layer.xml</param-value>
 	</context-param>
 
-
+<!-- 스프링에서 인코딩 처리를 위해 CharacterEncodingFilter 클래스 제공 -->
+<!-- web.xml 파일에 CharacterEncodingFilter를 등록해서 모든 클라이언트의 요청에 일괄적인 인코딩 처리를 해준다 -->
 	<filter>
 		<filter-name>characterEncoding</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
@@ -39,7 +44,9 @@
 		<filter-name>characterEncoding</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
-
+	
+<!-- Spring MVC에서 가장 중요한 요소가 모든 클라이언트의 요청을 가장 먼저 받아들이는 DispatcherServlet임. -->
+<!-- 제일먼저 Spring 프레임워크에서 제공하는 DispatcherServlet 변경한다. -->
 	<servlet>
 		<servlet-name>action</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -52,7 +59,8 @@
 
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.do</url-pattern> 
+<!-- 		/url.do 요청이 있어야 DispatcherServlet객체를 생성 -->
 	</servlet-mapping>
 	<web-app>
     <session-config>

@@ -44,5 +44,8 @@ public class WorkerMyBatisDAO {
 	public List<WorkerVO> getselectBoard(PagingVO vo) {
 		return mybatis.selectList("workerDAO.getselectBoard", vo);
 	}
+	public WorkerVO getKakaoId(long kakao_id) {
+		return mybatis.selectOne("workerDAO.getKakaoId", kakao_id);
+	}
 	
 }

@@ -25,18 +25,24 @@
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
- 		<property name="url" value="jdbc:mysql://database-1.cie1drtwh33y.ap-northeast-2.rds.amazonaws.com:3306/Payslip"></property>
+ 		<property name="url" value="jdbc:mysql://localhost:3306/payslip"></property>
  		<property name="username" value="root"></property>
-		<property name="password" value="12341234"></property>
+		<property name="password" value="1234"></property>
+		<property name="validationQuery" value="SELECT 1"/>
+		<property name="testWhileIdle" value="true"/>
 	</bean>
 	
-
+<!-- 스프링과 Mybatis 연동하기 위해 org.mybatis.spring.SqlSessionFactoryBean클래스를 
+     bean등록해야 DB연동 구현에 사용할 SqlSession객체를 얻을 수 있다.
+      이때 반드시 필요한것 1.dataSource 2.sql-map-config.xml -->
 	<bean id="sessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation" value="classpath:sql-map-config.xml"></property>
 	</bean>
 	
+<!-- MyBatis + Spring 연동 시 개발 생산성 위해 SqlSessionTemplate은 
+     선언적 방식의 트랜잭션 제어를 지원(= AOP 기반 Transaction 제어) -->
 	<bean class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sessionFactory"></constructor-arg>
 	</bean>

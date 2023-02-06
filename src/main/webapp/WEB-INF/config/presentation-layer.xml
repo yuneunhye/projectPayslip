@@ -29,6 +29,10 @@
 <!-- <bean id="deleteBoard" class="com.company.biz.controller.board.DeleteBoardController"></bean> -->
 <!-- <bean id="logout" class="com.company.biz.controller.user.LogoutController"></bean> -->
 
+<!-- 스프링 mvc에서 어노테이션을 사용하려면, 먼저 <beans>루트 엘리먼트에 context 네임스페이스 추가 -->
+<!-- 모든 컨트롤러가 스캔 범위에 포함되도록 등록 -->
+
+<!-- (url).do요청이 들어왔고 컨트롤러 객체를 생성해준다.  -->
 <context:component-scan base-package="com.company.view"/>
 
 <!-- 변환기 생성(JSON데이터 타입 변환을 해주는 변환기 생성) -->
@@ -45,17 +49,23 @@
 	<property name="maxUploadSize" value="-1"></property>
 </bean>
 
-<!-- 예외 처리 설정 -->
+<!-- xml기반의 예외 처리 설정 -->
 <!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> -->
 <!-- 	<property name="exceptionMappings"> -->
 <!-- 		<props> -->
-<!-- 			<prop key="java.lang.ArithmeticException">common/arithmeticError</prop> -->
-<!-- 			<prop key="java.lang.IllegalArgumentException">common/illegalArgumentError</prop> -->
-<!-- 			<prop key="java.lang.NullPointerException">common/nullPointerException</prop> -->
+<!-- 			<prop key="java.lang.ArithmeticException">
+						common/arithmeticError.jsp 
+				</prop> -->
+<!-- 			<prop key="java.lang.IllegalArgumentException">
+					common/illegalArgumentError.jsp
+				</prop> -->
+<!-- 			<prop key="java.lang.NullPointerException">
+					common/nullPointerException.jsp
+				</prop> -->
 <!-- 		</props> -->
 <!-- 	</property> -->
-	
-<!-- 	<property name="defaultErrorView" value="common/error"></property> -->
+<!-- 	그 외 에러가 발생하면 defaultErrorView로 설정한 error.jsp화면으로 전송된다 -->
+<!-- 	<property name="defaultErrorView" value="common/error.jsp"></property> -->
 <!-- </bean> -->
 
 <!-- 다국어 설정 -->
