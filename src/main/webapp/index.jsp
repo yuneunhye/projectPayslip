@@ -34,7 +34,7 @@
 	
 	function kakaoLogin(){
 		 $.ajax({
-		        url: 'http://localhost:8090/login/getKakaoAuthUrl.do',
+		        url: 'http://localhost:8090/getKakaoAuthUrl.do',
 		        type: 'get',
 		        async: false,
 		        dataType: 'text',

@@ -27,18 +27,18 @@ public class KakaoController {
 	WorkerService workerservice;
 	
 		@ResponseBody
-		@RequestMapping(value="/login/getKakaoAuthUrl.do")
+		@RequestMapping(value="/getKakaoAuthUrl.do")
 		public String getKakaoAuthUrl(HttpServletRequest req) {
 			
 			String reqUrl="https://kauth.kakao.com/oauth/authorize"
 					+ "?client_id=063c1cbc4cbf382004e7304670896476"
-					+ "&redirect_uri=http://localhost:8090/login/auth_kakao.do"
+					+ "&redirect_uri=http://localhost:8090/auth_kakao.do"
 					+ "&response_type=code";
 			
 			return reqUrl;
 			}
 		
-		@RequestMapping(value="/login/auth_kakao.do", method=RequestMethod.GET)
+		@RequestMapping(value="/auth_kakao.do", method=RequestMethod.GET)
 		public String kakaoOauth(@RequestParam(value = "code", required = false) String code, Model model, WorkerVO vo, HttpSession session) throws Exception {
 			System.out.println("#########" + code);
 			

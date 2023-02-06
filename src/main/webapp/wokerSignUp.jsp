@@ -103,8 +103,7 @@ $.fn.serializeObject = function(){
           contentType: "application/json",
           success(data){
              alert("회원가입이 완료되었습니다.");
-            // location.href = "index.jsp";
-             location.href = "redirect:index.jsp";
+            location.href = "index.jsp";
           },
           error:function(){
              alert('전송 실패');
