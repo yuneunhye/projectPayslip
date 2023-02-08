@@ -14,6 +14,6 @@
 
 <img src="https://user-images.githubusercontent.com/118416981/217467355-589bf37d-ebf0-42f0-8dc8-b2081d4f26a2.jpg"/>
 
-(DataBase는 Oracle과 Mysql 쿼리문 작성)
+(DataBase는 Oracle과 Mysql 쿼리문 각각 작성)
 
 
