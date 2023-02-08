@@ -13,8 +13,8 @@
 
 ### 개발환경  
 
-<img src="https://user-images.githubusercontent.com/118416981/217467355-589bf37d-ebf0-42f0-8dc8-b2081d4f26a2.jpg"/>
+<img src="https://user-images.githubusercontent.com/118416981/217512739-9b71684c-47fe-4322-ba78-c973c3094788.jpg"/>
 
-(DataBase는 Oracle과 Mysql 쿼리문 각각 작성)
+
 
 
