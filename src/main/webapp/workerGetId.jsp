@@ -7,15 +7,11 @@
 <meta charset="UTF-8">
 <title>아이디찾기</title>
 <style>
-
- *  {margin :0; 
- padding : 0;
- }  
+ *  {margin :0; padding : 0;}  
  div {width : 300px; margin-left: 5%; margin-top: 5%;} 
 </style>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
 <!-- Bootstrap core JavaScript -->
 <script src="jquery/jquery.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>

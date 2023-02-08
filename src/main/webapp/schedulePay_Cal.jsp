@@ -14,119 +14,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>급여계산</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script type="text/javascript">
-	var hour;
-	var monthlyPay;
-	var min;
-	function clicked_Mon(){
-		var select=document.getElementById("clickMon");
-		var selectMon = select.options[select.selectedIndex].value;
-		var worker_no="<%=request.getParameter("worker_no")%>";
-		var worker_id="<%=request.getParameter("worker_id")%>";
-		console.log(worker_no+"넘버,,아이디"+worker_id+"선택된달"+selectMon);
-			   
-		var date={'worker_no':worker_no, 'worker_id':worker_id, 'selectMon':selectMon} ;
-		console.log(date);
-		
-		if(selectMon=="" || selectMon=="0")
-			return;
-		
-		$.ajax({
-			          url:"http://localhost:8090/totalHourScheduleAjax.do",
-			          type:"post",
-			          data: JSON.stringify(date),
-			          dataType: "json",
-			          contentType: "application/json",
-			          async: false,//동기식으로 한다.
-			          success(data){
-			        	  console.log(data);
-			        	  hour=data.totalHour;
-			        	  min=data.totalMin;
-			        	  var hh=parseInt(min/60);
-			        	  var mm=min%60;
-			        	  
-			        	  console.log(hh+"시"+mm+"분");
-			        	  var total =$("#totalTime").val(hh+"시"+mm+"분");
-			        	  
-			     		
-			             
-			          },
-			          error:function(){
-			             alert('전송 실패');
-			          }
-			       });
-		   
-		
-		
- 	}
-	
-	function calculate(){
-		
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="/js/script.js"></script>
 
-				 var wage= $('#hourlyPay').val();
-				 var tax=$('#tax').val();
-				 var selectMon = $('#clickMon').val();
-				 console.log(selectMon+"selectMon");
-				 if(wage==''){
-					 alert('시급을 입력해주세요');
-				     $('#hourlyPay').focus();
-				     return false;
-				 }
-				 if(selectMon==null || selectMon=="0"){
-					 alert('월을 선택해 주세요');
-					 return false;
-				 }
-				 
-				 
-				 
-				  monthlyPay=wage * hour;
-				 var value=$("#tax").val();
-				
-					 monthlyPay = Math.round(monthlyPay - (monthlyPay*value));
-					 money=monthlyPay.toLocaleString();
-				var tmonthPay=$('#price').text("해당 월 급여 금액은 "+money+"원 입니다.");
-				 
- 	}
-	function save(){
-		var select=document.getElementById("clickMon");
-		var selectMon = select.options[select.selectedIndex].value;
-		var worker_no="<%=request.getParameter("worker_no")%>";
-		var name="<%=request.getParameter("name")%>";
-		var hourlyPay= $('#hourlyPay').val();
-		var tax= $('#tax').val();
-		console.log(worker_no+"넘버,,이름"+name+"선택된달"+selectMon);
-			   
-		var date={'worker_no':worker_no, 'name':name, 'selectMon':selectMon,
-				'hourlyPay' :hourlyPay, 'totalMin':min, 'tax':tax,'money':monthlyPay} ;
-		console.log(date);
-		
-		if(money=='')
-			return;
-		$.ajax({
-			          url:"http://localhost:8090/payInfoAjax.do",
-			          type:"post",
-			          data: JSON.stringify(date),
-			          dataType: "json",
-			          contentType: "application/json",
-			          async: false,//동기식으로 한다.
-			          success(data){
-			        	 alert('저장완료');
-			        	 self.close();
-			             
-			          },
-			          error:function(){
-			             alert('전송 실패');
-			          }
-			       });
-		   
-		
-		
- 	}
-
-
-</script>
 </head>
 <body>
 	<div >
@@ -144,7 +34,6 @@
 				</tr>
 				<tr>
 					<td>해당 월 총 근무시간</td>
-					
 					<td>
 					<select id="clickMon" name="clickMon"onclick="clicked_Mon();">
 					<option value="" selected disabled>월을 선택</option>
@@ -172,6 +61,10 @@
 					<option value="0.0932">9.32%</option>
 					<option value="0.033">3.3%</option>
 					</select></td>
+				</tr>
+				<tr>
+				<td><input type="hidden" id="worker_no" value="<%=request.getParameter("worker_no")%>"></td>
+				<td><input type="hidden" id="worker_id" value="<%=request.getParameter("worker_id")%>"></td>
 				</tr>
 				<tr>
 					<td colspan="2"><button onclick="calculate()"  class="btn btn-success">계산하기</button>
